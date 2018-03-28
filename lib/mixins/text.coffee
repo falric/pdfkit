@@ -211,6 +211,110 @@ module.exports =
       @stroke()
       @restore()
 
+    # flip coordinate system
+    @save()
+    @transform 1, 0, 0, -1, 0, @page.height
+    y = @page.height - y - (@_font.ascender / 1000 * @_fontSize)
+
+    # add current font to page if necessary
+    @page.fonts[@_font.id] ?= @_font.ref()
+
+    # begin the text object
+    @addContent "BT"
+
+    # text position
+    @addContent "1 0 0 1 #{number(x)} #{number(y)} Tm"
+
+    # font and font size
+    @addContent "/#{@_font.id} #{number(@_fontSize)} Tf"
+
+    # rendering mode
+    mode = if options.fill and options.stroke then 2 else if options.stroke then 1 else 0
+    @addContent "#{mode} Tr" if mode
+
+    # Character spacing
+    @addContent "#{number(characterSpacing)} Tc" if characterSpacing
+
+    # Add the actual text
+    # If we have a word spacing value, we need to encode each word separately
+    # since the normal Tw operator only works on character code 32, which isn't
+    # used for embedded fonts.
+    if wordSpacing
+      words = text.trim().split(/\s+/)
+      wordSpacing += @widthOfString(' ') + characterSpacing
+      wordSpacing *= 1000 / @_fontSize
+
+      encoded = []
+      positions = []
+      for word in words
+        [encodedWord, positionsWord] = @_font.encode(word, options.features)
+        encoded.push encodedWord...
+        positions.push positionsWord...
+
+        # add the word spacing to the end of the word
+        # clone object because of cache
+        space = {}
+        space[key] = val for key, val of positions[positions.length - 1]
+        space.xAdvance += wordSpacing
+        positions[positions.length - 1] = space
+    else
+      [encoded, positions] = @_font.encode(text, options.features)
+
+    scale = @_fontSize / 1000
+    commands = []
+    last = 0
+    hadOffset = no
+
+    # Adds a segment of text to the TJ command buffer
+    addSegment = (cur) =>
+      if last < cur
+        hex = encoded.slice(last, cur).join ''
+        advance = positions[cur - 1].xAdvance - positions[cur - 1].advanceWidth
+        commands.push "<#{hex}> #{number(-advance)}"
+
+      last = cur
+
+    # Flushes the current TJ commands to the output stream
+    flush = (i) =>
+      addSegment i
+
+      if commands.length > 0
+        @addContent "[#{commands.join ' '}] TJ"
+        commands.length = 0
+
+    for pos, i in positions
+      # If we have an x or y offset, we have to break out of the current TJ command
+      # so we can move the text position.
+      if pos.xOffset or pos.yOffset
+        # Flush the current buffer
+        flush i
+
+        # Move the text position and flush just the current character
+        @addContent "1 0 0 1 #{number(x + pos.xOffset * scale)} #{number(y + pos.yOffset * scale)} Tm"
+        flush i + 1
+
+        hadOffset = yes
+      else
+        # If the last character had an offset, reset the text position
+        if hadOffset
+          @addContent "1 0 0 1 #{number(x)} #{number(y)} Tm"
+          hadOffset = no
+
+        # Group segments that don't have any advance adjustments
+        unless pos.xAdvance - pos.advanceWidth is 0
+          addSegment i + 1
+
+      x += pos.xAdvance * scale
+
+    # Flush any remaining commands
+    flush i
+
+    # end the text object
+    @addContent "ET"
+
+    # restore flipped coordinate system
+    @restore()
+
   _addGlyphs: (glyphs, positions, x, y, options = {}) ->
     # flip coordinate system
     @save()
@@ -233,11 +337,8 @@ module.exports =
     mode = if options.fill and options.stroke then 2 else if options.stroke then 1 else 0
     @addContent "#{mode} Tr" if mode
 
-    # Character spacing
-    # @addContent "#{number(characterSpacing)} Tc" if characterSpacing
-
     # Add the actual text
-    encoded = @_font.encode2(glyphs)
+    encoded = @_font.encodeGlyphs(glyphs)
     scale = @_fontSize / 1000
     commands = []
     last = 0
@@ -247,7 +348,10 @@ module.exports =
     addSegment = (cur) =>
       if last < cur
         hex = encoded.slice(last, cur).join ''
-        advance = positions[cur - 1].xAdvance * (1000 / @_fontSize) - glyphs[cur - 1].advanceWidth * (1000 / @_font.font.unitsPerEm)
+        advance = positions[cur - 1].xAdvance *
+          (1000 / @_fontSize) -
+          glyphs[cur - 1].advanceWidth *
+          (1000 / @_font.font.unitsPerEm)
         commands.push "<#{hex}> #{number(-advance)}"
 
       last = cur

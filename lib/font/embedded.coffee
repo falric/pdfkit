@@ -76,7 +76,7 @@ class EmbeddedFont extends PDFFont
 
     return [res, positions]
 
-  encode2: (glyphs) ->
+  encodeGlyphs: (glyphs) ->
     res = []
     for glyph, i in glyphs
       gid = @subset.includeGlyph glyph.id
