@@ -256,7 +256,8 @@ module.exports =
     y = @page.height - y
 
     scale = (1000 / @_fontSize)
-    advanceWidthScale = (1000 / @_font.font.unitsPerEm)
+    unitsPerEm = @_font.font.unitsPerEm || 1000
+    advanceWidthScale = (1000 / unitsPerEm)
 
     # Glyph encoding and positioning
     encodedGlyphs = @_font.encodeGlyphs(glyphs)
