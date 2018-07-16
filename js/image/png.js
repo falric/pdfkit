@@ -1,5 +1,5 @@
 const zlib = require('zlib');
-const PNG = require('png-js');
+const PNG = require('png-js/png.js');
 
 class PNGImage {
   constructor(data, label) {

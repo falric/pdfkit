@@ -1,4 +1,4 @@
-const fontkit = require('fontkit');
+const fontkit = require('@react-pdf/fontkit');
 
 class PDFFont {
   static open(document, src, family, id) {

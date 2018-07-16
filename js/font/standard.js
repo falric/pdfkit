@@ -1,6 +1,5 @@
 const AFMFont = require('./afm');
 const PDFFont = require('../font');
-const fs = require('fs');
 
 class StandardFont extends PDFFont {
   constructor(document, name, id) {
@@ -75,76 +74,77 @@ class StandardFont extends PDFFont {
   }
 }
 
+// TODO: Recover default fonts
 const STANDARD_FONTS = {
-  Courier() {
-    return fs.readFileSync(__dirname + '/../font/data/Courier.afm', 'utf8');
-  },
-  'Courier-Bold'() {
-    return fs.readFileSync(
-      __dirname + '/../font/data/Courier-Bold.afm',
-      'utf8'
-    );
-  },
-  'Courier-Oblique'() {
-    return fs.readFileSync(
-      __dirname + '/../font/data/Courier-Oblique.afm',
-      'utf8'
-    );
-  },
-  'Courier-BoldOblique'() {
-    return fs.readFileSync(
-      __dirname + '/../font/data/Courier-BoldOblique.afm',
-      'utf8'
-    );
-  },
-  Helvetica() {
-    return fs.readFileSync(__dirname + '/../font/data/Helvetica.afm', 'utf8');
-  },
-  'Helvetica-Bold'() {
-    return fs.readFileSync(
-      __dirname + '/../font/data/Helvetica-Bold.afm',
-      'utf8'
-    );
-  },
-  'Helvetica-Oblique'() {
-    return fs.readFileSync(
-      __dirname + '/../font/data/Helvetica-Oblique.afm',
-      'utf8'
-    );
-  },
-  'Helvetica-BoldOblique'() {
-    return fs.readFileSync(
-      __dirname + '/../font/data/Helvetica-BoldOblique.afm',
-      'utf8'
-    );
-  },
-  'Times-Roman'() {
-    return fs.readFileSync(__dirname + '/../font/data/Times-Roman.afm', 'utf8');
-  },
-  'Times-Bold'() {
-    return fs.readFileSync(__dirname + '/../font/data/Times-Bold.afm', 'utf8');
-  },
-  'Times-Italic'() {
-    return fs.readFileSync(
-      __dirname + '/../font/data/Times-Italic.afm',
-      'utf8'
-    );
-  },
-  'Times-BoldItalic'() {
-    return fs.readFileSync(
-      __dirname + '/../font/data/Times-BoldItalic.afm',
-      'utf8'
-    );
-  },
-  Symbol() {
-    return fs.readFileSync(__dirname + '/../font/data/Symbol.afm', 'utf8');
-  },
-  ZapfDingbats() {
-    return fs.readFileSync(
-      __dirname + '/../font/data/ZapfDingbats.afm',
-      'utf8'
-    );
-  },
+  // Courier() {
+  //   return fs.readFileSync(__dirname + '/../font/data/Courier.afm', 'utf8');
+  // },
+  // 'Courier-Bold'() {
+  //   return fs.readFileSync(
+  //     __dirname + '/../font/data/Courier-Bold.afm',
+  //     'utf8'
+  //   );
+  // },
+  // 'Courier-Oblique'() {
+  //   return fs.readFileSync(
+  //     __dirname + '/../font/data/Courier-Oblique.afm',
+  //     'utf8'
+  //   );
+  // },
+  // 'Courier-BoldOblique'() {
+  //   return fs.readFileSync(
+  //     __dirname + '/../font/data/Courier-BoldOblique.afm',
+  //     'utf8'
+  //   );
+  // },
+  // Helvetica() {
+  //   return fs.readFileSync(__dirname + '/../font/data/Helvetica.afm', 'utf8');
+  // },
+  // 'Helvetica-Bold'() {
+  //   return fs.readFileSync(
+  //     __dirname + '/../font/data/Helvetica-Bold.afm',
+  //     'utf8'
+  //   );
+  // },
+  // 'Helvetica-Oblique'() {
+  //   return fs.readFileSync(
+  //     __dirname + '/../font/data/Helvetica-Oblique.afm',
+  //     'utf8'
+  //   );
+  // },
+  // 'Helvetica-BoldOblique'() {
+  //   return fs.readFileSync(
+  //     __dirname + '/../font/data/Helvetica-BoldOblique.afm',
+  //     'utf8'
+  //   );
+  // },
+  // 'Times-Roman'() {
+  //   return fs.readFileSync(__dirname + '/../font/data/Times-Roman.afm', 'utf8');
+  // },
+  // 'Times-Bold'() {
+  //   return fs.readFileSync(__dirname + '/../font/data/Times-Bold.afm', 'utf8');
+  // },
+  // 'Times-Italic'() {
+  //   return fs.readFileSync(
+  //     __dirname + '/../font/data/Times-Italic.afm',
+  //     'utf8'
+  //   );
+  // },
+  // 'Times-BoldItalic'() {
+  //   return fs.readFileSync(
+  //     __dirname + '/../font/data/Times-BoldItalic.afm',
+  //     'utf8'
+  //   );
+  // },
+  // Symbol() {
+  //   return fs.readFileSync(__dirname + '/../font/data/Symbol.afm', 'utf8');
+  // },
+  // ZapfDingbats() {
+  //   return fs.readFileSync(
+  //     __dirname + '/../font/data/ZapfDingbats.afm',
+  //     'utf8'
+  //   );
+  // },
 };
 
 module.exports = StandardFont;
