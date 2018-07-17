@@ -14,7 +14,8 @@
     "url": "http://badassjs.com/"
   },
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "prepublish": "npm run build"
   },
   "files": [
     "dist"

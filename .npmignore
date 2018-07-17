@@ -1,7 +1,6 @@
 node-zlib/
 node-modules/
 demo/
-src/
 lib/
 docs/
 playground/
