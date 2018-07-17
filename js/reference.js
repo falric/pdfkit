@@ -1,5 +1,6 @@
-const zlib = require('zlib');
-const stream = require('stream');
+import zlib from 'zlib';
+import stream from 'stream';
+import PDFObject from './object';
 
 class PDFReference extends stream.Writable {
   constructor(document, id, data) {
@@ -90,5 +91,4 @@ class PDFReference extends stream.Writable {
   }
 }
 
-module.exports = PDFReference;
-var PDFObject = require('./object');
+export default PDFReference;

@@ -1,7 +1,13 @@
-const stream = require('stream');
-const PDFObject = require('./object');
-const PDFReference = require('./reference');
-const PDFPage = require('./page');
+import stream from 'stream';
+import PDFObject from './object';
+import PDFReference from './reference';
+import PDFPage from './page';
+import Color from './mixins/color';
+import Vector from './mixins/vector';
+import Fonts from './mixins/fonts';
+import Text from './mixins/text';
+import Images from './mixins/images';
+import Annotations from './mixins/annotations';
 
 class PDFDocument extends stream.Readable {
   constructor(options = {}) {
@@ -199,7 +205,7 @@ class PDFDocument extends stream.Readable {
   }
 }
 
-mixin = methods => {
+const mixin = methods => {
   return (() => {
     const result = [];
     for (let name in methods) {
@@ -211,11 +217,11 @@ mixin = methods => {
 };
 
 // Load mixins
-mixin(require('./mixins/color'));
-mixin(require('./mixins/vector'));
-mixin(require('./mixins/fonts'));
-mixin(require('./mixins/text'));
-mixin(require('./mixins/images'));
-mixin(require('./mixins/annotations'));
+mixin(Color);
+mixin(Vector);
+mixin(Fonts);
+mixin(Text);
+mixin(Images);
+mixin(Annotations);
 
-module.exports = PDFDocument;
+export default PDFDocument;

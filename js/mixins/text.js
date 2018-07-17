@@ -1,6 +1,6 @@
-const { number } = require('../object');
+import PDFObject from '../object';
 
-module.exports = {
+export default {
   initText() {
     // Current coordinates
     this.x = 0;
@@ -47,10 +47,10 @@ module.exports = {
     this.addContent('BT');
 
     // text position
-    this.addContent(`1 0 0 1 ${number(x)} ${number(y)} Tm`);
+    this.addContent(`1 0 0 1 ${PDFObject.number(x)} ${PDFObject.number(y)} Tm`);
 
     // font and font size
-    this.addContent(`/${this._font.id} ${number(this._fontSize)} Tf`);
+    this.addContent(`/${this._font.id} ${PDFObject.number(this._fontSize)} Tf`);
 
     // rendering mode
     const mode = options.fill && options.stroke ? 2 : options.stroke ? 1 : 0;
@@ -60,7 +60,7 @@ module.exports = {
 
     // Character spacing
     if (options.characterSpacing) {
-      this.addContent(`${number(options.characterSpacing)} Tc`);
+      this.addContent(`${PDFObject.number(options.characterSpacing)} Tc`);
     }
 
     const scale = this._fontSize / 1000;
@@ -74,7 +74,7 @@ module.exports = {
         const hex = encoded.slice(last, cur).join('');
         const advance =
           positions[cur - 1].xAdvance - positions[cur - 1].advanceWidth;
-        commands.push(`<${hex}> ${number(-advance)}`);
+        commands.push(`<${hex}> ${PDFObject.number(-advance)}`);
       }
 
       return (last = cur);
@@ -100,7 +100,7 @@ module.exports = {
 
         // Move the text position and flush just the current character
         this.addContent(
-          `1 0 0 1 ${number(x + pos.xOffset * scale)} ${number(
+          `1 0 0 1 ${PDFObject.number(x + pos.xOffset * scale)} ${PDFObject.number(
             y + pos.yOffset * scale
           )} Tm`
         );
@@ -110,7 +110,7 @@ module.exports = {
       } else {
         // If the last character had an offset, reset the text position
         if (hadOffset) {
-          this.addContent(`1 0 0 1 ${number(x)} ${number(y)} Tm`);
+          this.addContent(`1 0 0 1 ${PDFObject.number(x)} ${PDFObject.number(y)} Tm`);
           hadOffset = false;
         }
 

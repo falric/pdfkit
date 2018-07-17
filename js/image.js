@@ -1,6 +1,7 @@
-const Data = require('./data');
-const JPEG = require('./image/jpeg');
-const PNG = require('./image/png');
+import fs from 'fs';
+import Data from './data';
+import JPEG from './image/jpeg';
+import PNG from './image/png';
 
 class PDFImage {
   static open(src, label) {
@@ -13,6 +14,9 @@ class PDFImage {
       let match = /^data:.+;base64,(.*)$/.exec(src);
       if (match) {
         data = new Buffer(match[1], 'base64');
+      } else if (!BROWSER) {
+        data = fs.readFileSync(src);
+        if (!data) return;
       }
     }
 
@@ -26,4 +30,4 @@ class PDFImage {
   }
 }
 
-module.exports = PDFImage;
+export default PDFImage;

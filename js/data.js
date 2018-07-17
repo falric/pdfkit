@@ -1,3 +1,5 @@
+import range from './utils/range';
+
 class Data {
   constructor(data = []) {
     this.pos = 0;
@@ -97,7 +99,7 @@ class Data {
   }
 
   writeString(val) {
-    return __range__(0, val.length, false).map(i =>
+    return range(0, val.length, false).map(i =>
       this.writeByte(val.charCodeAt(i))
     );
   }
@@ -196,14 +198,4 @@ class Data {
   }
 }
 
-function __range__(left, right, inclusive) {
-  let range = [];
-  let ascending = left < right;
-  let end = !inclusive ? right : ascending ? right + 1 : right - 1;
-  for (let i = left; ascending ? i < end : i > end; ascending ? i++ : i--) {
-    range.push(i);
-  }
-  return range;
-}
-
-module.exports = Data;
+export default Data;

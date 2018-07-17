@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   initColor() {
     // The opacity dictionaries
     this._opacityRegistry = {};

@@ -1,6 +1,6 @@
-const PDFFont = require('../font');
+import PDFFont from '../font';
 
-module.exports = {
+export default {
   initFonts() {
     // Lookup table for embedded fonts
     this._fontFamilies = {};

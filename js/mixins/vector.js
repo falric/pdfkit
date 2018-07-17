@@ -1,10 +1,11 @@
-const SVGPath = require('../path');
-const { number } = require('../object');
+import SVGPath from '../path';
+import PDFObject from '../object';
 
 // This constant is used to approximate a symmetrical arc using a cubic
 // Bezier curve.
 const KAPPA = 4.0 * ((Math.sqrt(2) - 1.0) / 3.0);
-module.exports = {
+
+export default {
   initVector() {
     this._ctm = [1, 0, 0, 1, 0, 0]; // current transformation matrix
     return (this._ctmStack = []);
@@ -26,7 +27,7 @@ module.exports = {
   },
 
   lineWidth(w) {
-    return this.addContent(`${number(w)} w`);
+    return this.addContent(`${PDFObject.number(w)} w`);
   },
 
   _CAP_STYLES: {
@@ -56,7 +57,7 @@ module.exports = {
   },
 
   miterLimit(m) {
-    return this.addContent(`${number(m)} M`);
+    return this.addContent(`${PDFObject.number(m)} M`);
   },
 
   dash(length, options) {
@@ -69,15 +70,15 @@ module.exports = {
     }
     if (Array.isArray(length)) {
       length = Array.from(length)
-        .map(v => number(v))
+        .map(v => PDFObject.number(v))
         .join(' ');
       phase = options.phase || 0;
-      return this.addContent(`[${length}] ${number(phase)} d`);
+      return this.addContent(`[${length}] ${PDFObject.number(phase)} d`);
     } else {
       const space = options.space != null ? options.space : length;
       phase = options.phase || 0;
       return this.addContent(
-        `[${number(length)} ${number(space)}] ${number(phase)} d`
+        `[${PDFObject.number(length)} ${PDFObject.number(space)}] ${PDFObject.number(phase)} d`
       );
     }
   },
@@ -87,30 +88,30 @@ module.exports = {
   },
 
   moveTo(x, y) {
-    return this.addContent(`${number(x)} ${number(y)} m`);
+    return this.addContent(`${PDFObject.number(x)} ${PDFObject.number(y)} m`);
   },
 
   lineTo(x, y) {
-    return this.addContent(`${number(x)} ${number(y)} l`);
+    return this.addContent(`${PDFObject.number(x)} ${PDFObject.number(y)} l`);
   },
 
   bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) {
     return this.addContent(
-      `${number(cp1x)} ${number(cp1y)} ${number(cp2x)} ${number(cp2y)} ${number(
+      `${PDFObject.number(cp1x)} ${PDFObject.number(cp1y)} ${PDFObject.number(cp2x)} ${PDFObject.number(cp2y)} ${PDFObject.number(
         x
-      )} ${number(y)} c`
+      )} ${PDFObject.number(y)} c`
     );
   },
 
   quadraticCurveTo(cpx, cpy, x, y) {
     return this.addContent(
-      `${number(cpx)} ${number(cpy)} ${number(x)} ${number(y)} v`
+      `${PDFObject.number(cpx)} ${PDFObject.number(cpy)} ${PDFObject.number(x)} ${PDFObject.number(y)} v`
     );
   },
 
   rect(x, y, w, h) {
     return this.addContent(
-      `${number(x)} ${number(y)} ${number(w)} ${number(h)} re`
+      `${PDFObject.number(x)} ${PDFObject.number(y)} ${PDFObject.number(w)} ${PDFObject.number(h)} re`
     );
   },
 
@@ -304,7 +305,7 @@ module.exports = {
     m[4] = m0 * dx + m2 * dy + m4;
     m[5] = m1 * dx + m3 * dy + m5;
 
-    const values = [m11, m12, m21, m22, dx, dy].map(v => number(v)).join(' ');
+    const values = [m11, m12, m21, m22, dx, dy].map(v => PDFObject.number(v)).join(' ');
     return this.addContent(`${values} cm`);
   },
 

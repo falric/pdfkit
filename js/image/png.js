@@ -1,5 +1,5 @@
-const zlib = require('zlib');
-const PNG = require('png-js/png.js');
+import zlib from 'zlib';
+const PNG = require('png-js');
 
 class PNGImage {
   constructor(data, label) {
@@ -171,4 +171,4 @@ class PNGImage {
   }
 }
 
-module.exports = PNGImage;
+export default PNGImage;

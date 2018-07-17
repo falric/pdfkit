@@ -1,3 +1,5 @@
+import PDFReference from './reference';
+
 const escapableRe = /[\n\r\t\b\f\(\)\\]/g;
 const escapable = {
   '\n': '\\n',
@@ -103,6 +105,4 @@ class PDFObject {
   }
 }
 
-module.exports = PDFObject;
-
-var PDFReference = require('./reference');
+export default PDFObject;

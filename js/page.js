@@ -1,4 +1,4 @@
-SIZES = {
+const SIZES = {
   '4A0': [4767.87, 6740.79],
   '2A0': [3370.39, 4767.87],
   A0: [2383.94, 3370.39],
@@ -133,4 +133,4 @@ class PDFPage {
   }
 }
 
-module.exports = PDFPage;
+export default PDFPage;
