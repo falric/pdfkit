@@ -11,8 +11,6 @@ import TimesRoman from './data/Times-Roman.afm';
 import TimesBold from './data/Times-Bold.afm';
 import TimesItalic from './data/Times-Italic.afm';
 import TimesBoldItalic from './data/Times-BoldItalic.afm';
-import SymbolFont from './data/Symbol.afm';
-import ZapfDingbats from './data/ZapfDingbats.afm';
 
 const STANDARD_FONTS = {
   Courier: Courier,
@@ -26,9 +24,7 @@ const STANDARD_FONTS = {
   'Times-Roman': TimesRoman,
   'Times-Bold': TimesBold,
   'Times-Italic': TimesItalic,
-  'Times-BoldItalic': TimesBoldItalic,
-  Symbol: SymbolFont,
-  ZapfDingbats: ZapfDingbats
+  'Times-BoldItalic': TimesBoldItalic
 };
 
 const createStandardFont = PDFFont => (
