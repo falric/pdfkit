@@ -21,7 +21,7 @@
     "dist"
   ],
   "dependencies": {
-    "@react-pdf/fontkit": "^1.10.0",
+    "@react-pdf/fontkit": "^1.11.0",
     "png-js": ">=0.1.0"
   },
   "devDependencies": {

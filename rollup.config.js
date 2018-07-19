@@ -20,7 +20,7 @@ const getCJS = override => Object.assign({}, cjs, override)
 const getESM = override => Object.assign({}, esm, override)
 
 const configBase = {
-  input: 'src/document.js',
+  input: 'src/index.js',
   plugins: [
     nodeResolve(),
     json(),

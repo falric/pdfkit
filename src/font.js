@@ -2,7 +2,7 @@ import fontkit from '@react-pdf/fontkit';
 import createStandardFont from './font/standard';
 import createEmbeddedFont from './font/embedded';
 
-class PDFFont {
+export class PDFFont {
   static open(document, src, family, id) {
     let font;
 
@@ -64,7 +64,7 @@ class PDFFont {
   }
 }
 
-const StandardFont = createStandardFont(PDFFont);
-const EmbeddedFont = createEmbeddedFont(PDFFont);
+export const StandardFont = createStandardFont(PDFFont);
+export const EmbeddedFont = createEmbeddedFont(PDFFont);
 
 export default PDFFont;

@@ -2,11 +2,11 @@
 # yarn lockfile v1
 
 
-"@react-pdf/fontkit@^1.10.0":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@react-pdf/fontkit/-/fontkit-1.10.0.tgz#6a2bd6cfabd6f4c3a012e1f2b5b216445f371593"
+"@react-pdf/fontkit@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@react-pdf/fontkit/-/fontkit-1.11.0.tgz#2492ffca9454be2a52eb2aba01eacdf2a11ce9fd"
   dependencies:
-    "@react-pdf/unicode-properties" "^2.1.0"
+    "@react-pdf/unicode-properties" "^2.2.0"
     brfs "^1.4.0"
     brotli "^1.2.0"
     browserify-optional "^1.0.0"
@@ -17,9 +17,9 @@
     tiny-inflate "^1.0.2"
     unicode-trie "^0.3.0"
 
-"@react-pdf/unicode-properties@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@react-pdf/unicode-properties/-/unicode-properties-2.1.0.tgz#869a840d4be7db219b30d548323286ac499c7f01"
+"@react-pdf/unicode-properties@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@react-pdf/unicode-properties/-/unicode-properties-2.2.0.tgz#f109eaac244ceb108011d4038cee4cc787cb40f3"
   dependencies:
     unicode-trie "^0.3.0"
 
