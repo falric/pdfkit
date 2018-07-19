@@ -2,29 +2,23 @@ import AFMFont from './afm';
 import Courier from './data/Courier.afm';
 import CourierBold from './data/Courier-Bold.afm';
 import CourierOblique from './data/Courier-Oblique.afm';
-import CourierBoldOblique from './data/Courier-BoldOblique.afm';
 import Helvetica from './data/Helvetica.afm';
 import HelveticaBold from './data/Helvetica-Bold.afm';
 import HelveticaOblique from './data/Helvetica-Oblique.afm';
-import HelveticaBoldOblique from './data/Helvetica-BoldOblique.afm';
 import TimesRoman from './data/Times-Roman.afm';
 import TimesBold from './data/Times-Bold.afm';
 import TimesItalic from './data/Times-Italic.afm';
-import TimesBoldItalic from './data/Times-BoldItalic.afm';
 
 const STANDARD_FONTS = {
   Courier: Courier,
   'Courier-Bold': CourierBold,
   'Courier-Oblique': CourierOblique,
-  'Courier-BoldOblique': CourierBoldOblique,
   Helvetica: Helvetica,
   'Helvetica-Bold': HelveticaBold,
   'Helvetica-Oblique': HelveticaOblique,
-  'Helvetica-BoldOblique': HelveticaBoldOblique,
   'Times-Roman': TimesRoman,
   'Times-Bold': TimesBold,
   'Times-Italic': TimesItalic,
-  'Times-BoldItalic': TimesBoldItalic
 };
 
 const createStandardFont = PDFFont => (
