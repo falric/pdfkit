@@ -8,6 +8,69 @@ export default {
     return (this._lineGap = 0);
   },
 
+  text(text, x, y, options) {
+    options = this._initOptions(x, y, options);
+
+    // if the wordSpacing option is specified, remove multiple consecutive spaces
+    if(options.wordSpacing) {
+      text = text.replace(/\s{2,}/g, ' ')
+    }
+
+    // render paragraphs as single lines
+    const lines = text.split('\n');
+
+    for (var i = 0; i < lines.length; i++) {
+      this._line(lines[i], options);
+    }
+
+    return this
+  },
+
+  _initOptions(x = {}, y, options = {}) {
+    if(typeof x === 'object') {
+      options = x
+      x = null
+    }
+
+    // Update the current position
+    if(x) this.x = x;
+    if(y)	this.y = y;
+
+
+    options.columns = options.columns || 0
+    options.columnGap = options.columnGap || 18 // 1/4 inch
+
+    return options
+  },
+
+  _line(text, options = {}, wrapper) {
+    this._fragment(text, this.x, this.y, options)
+  },
+
+
+  _fragment(text, x, y, options) {
+    text = ('' + text).replace(/\n/g, '')
+
+    if (text.length === 0) return
+
+    // add current font to page if necessary
+    if (this.page.fonts[this._font.id] == null) {
+      this.page.fonts[this._font.id] = this._font.ref();
+    }
+
+    // Glyph encoding and positioning
+    const [encoded, positions] = this._font.encode(text, options.features);
+
+    // Pass down spacings to _glyphs method
+    options.wordSpacing = options.wordSpacing || 0;
+    options.characterSpacing = options.characterSpacing || 0;
+
+    // Adjust y to match coordinate flipping
+    y = this.page.height - y - ((this._font.ascender / 1000) * this._fontSize);
+
+    this._glyphs(encoded, positions, x, y, options)
+  },
+
   _addGlyphs(glyphs, positions, x, y, options) {
     // add current font to page if necessary
     if (options == null) {
