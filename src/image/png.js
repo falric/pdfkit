@@ -1,5 +1,5 @@
 import zlib from 'zlib';
-const PNG = require('png-js');
+import PNG from '@react-pdf/png-js';
 
 class PNGImage {
   constructor(data, label) {

@@ -32,9 +32,7 @@ const configBase = {
       runtimeHelpers: true
     })
   ],
-  external: [].concat(
-    Object.keys(pkg.dependencies)
-  )
+  external: Object.keys(pkg.dependencies)
 }
 
 const serverConfig = Object.assign({}, configBase, {
@@ -67,8 +65,7 @@ const browserConfig = Object.assign({}, configBase, {
   ],
   plugins: configBase.plugins.concat(
     replace({
-      BROWSER: JSON.stringify(true),
-      "png-js": "png-js/png.js"
+      BROWSER: JSON.stringify(true)
     }),
     ignore(['fs'])
   )
