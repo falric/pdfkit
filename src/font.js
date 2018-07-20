@@ -6,9 +6,7 @@ export class PDFFont {
   static open(document, src, family, id) {
     let font;
 
-    if (src.constructor.name === 'TTFFont') {
-      font = src;
-    } else if (typeof src === 'string') {
+    if (typeof src === 'string') {
       if (StandardFont.isStandardFont(src)) {
         return new StandardFont(document, src, id);
       }
@@ -19,6 +17,8 @@ export class PDFFont {
       font = fontkit.create(new Buffer(src), family);
     } else if (src instanceof ArrayBuffer) {
       font = fontkit.create(new Buffer(new Uint8Array(src)), family);
+    } else if (typeof src === 'object') {
+      font = src;
     }
 
     if (font == null) {
