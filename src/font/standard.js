@@ -1,24 +1,25 @@
+import LZString from 'lz-string';
 import AFMFont from './afm';
-import Courier from './data/Courier.afm';
-import CourierBold from './data/Courier-Bold.afm';
-import CourierOblique from './data/Courier-Oblique.afm';
-import Helvetica from './data/Helvetica.afm';
-import HelveticaBold from './data/Helvetica-Bold.afm';
-import HelveticaOblique from './data/Helvetica-Oblique.afm';
-import TimesRoman from './data/Times-Roman.afm';
-import TimesBold from './data/Times-Bold.afm';
-import TimesItalic from './data/Times-Italic.afm';
+import Courier from './data/Courier.b64.afm';
+import CourierBold from './data/Courier-Bold.b64.afm';
+import CourierOblique from './data/Courier-Oblique.b64.afm';
+import Helvetica from './data/Helvetica.b64.afm';
+import HelveticaBold from './data/Helvetica-Bold.b64.afm';
+import HelveticaOblique from './data/Helvetica-Oblique.b64.afm';
+import TimesRoman from './data/Times-Roman.b64.afm';
+import TimesBold from './data/Times-Bold.b64.afm';
+import TimesItalic from './data/Times-Italic.b64.afm';
 
 const STANDARD_FONTS = {
-  Courier: Courier,
-  'Courier-Bold': CourierBold,
-  'Courier-Oblique': CourierOblique,
-  Helvetica: Helvetica,
-  'Helvetica-Bold': HelveticaBold,
-  'Helvetica-Oblique': HelveticaOblique,
-  'Times-Roman': TimesRoman,
-  'Times-Bold': TimesBold,
-  'Times-Italic': TimesItalic,
+  Courier: LZString.decompressFromBase64(Courier),
+  'Courier-Bold': LZString.decompressFromBase64(CourierBold),
+  'Courier-Oblique': LZString.decompressFromBase64(CourierOblique),
+  Helvetica: LZString.decompressFromBase64(Helvetica),
+  'Helvetica-Bold': LZString.decompressFromBase64(HelveticaBold),
+  'Helvetica-Oblique': LZString.decompressFromBase64(HelveticaOblique),
+  'Times-Roman': LZString.decompressFromBase64(TimesRoman),
+  'Times-Bold': LZString.decompressFromBase64(TimesBold),
+  'Times-Italic': LZString.decompressFromBase64(TimesItalic),
 };
 
 const createStandardFont = PDFFont => (

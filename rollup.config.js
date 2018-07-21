@@ -1,6 +1,7 @@
 import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
 import nodeResolve from 'rollup-plugin-node-resolve';
+import bundleSize from 'rollup-plugin-bundle-size';
 import uglify from 'rollup-plugin-uglify';
 import string from 'rollup-plugin-string';
 import replace from 'rollup-plugin-replace'
@@ -30,7 +31,8 @@ const configBase = {
       presets: [['es2015', { modules: false }]],
       plugins: ['external-helpers'],
       runtimeHelpers: true
-    })
+    }),
+    bundleSize(),
   ],
   external: Object.keys(pkg.dependencies)
 }
