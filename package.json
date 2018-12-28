@@ -16,8 +16,8 @@
   "scripts": {
     "build": "rimraf ./dist && rollup -c",
     "prepublish": "npm run build",
-    "prebuild": "node ./src/font/data/compressData.js",
-    "postbuild": "rimraf ./src/font/data/*.b64.afm"
+    "prebuild": "node ./lib/font/data/compressData.js",
+    "postbuild": "rimraf ./lib/font/data/*.b64.afm"
   },
   "files": [
     "dist"
