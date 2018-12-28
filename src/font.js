@@ -1,4 +1,4 @@
-class PDFFont {
+export class PDFFont {
   constructor() {
   }
 
