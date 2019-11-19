@@ -1,3 +1,8 @@
+
+import Gradient from '../gradient';
+
+const { PDFGradient, PDFLinearGradient, PDFRadialGradient } = Gradient;
+
 export default {
   initColor() {
     // The opacity dictionaries
@@ -7,6 +12,10 @@ export default {
   },
 
   _normalizeColor(color) {
+    if (color instanceof PDFGradient) {
+      return color;
+    }
+
     let part;
     if (typeof color === 'string') {
       if (color.charAt(0) === '#') {
@@ -59,11 +68,16 @@ export default {
 
     const op = stroke ? 'SCN' : 'scn';
 
-    const space = color.length === 4 ? 'DeviceCMYK' : 'DeviceRGB';
-    this._setColorSpace(space, stroke);
+    if (color instanceof PDFGradient) {
+      this._setColorSpace('Pattern', stroke);
+      color.apply(op);
+    } else {
+      const space = color.length === 4 ? 'DeviceCMYK' : 'DeviceRGB';
+      this._setColorSpace(space, stroke);
 
-    color = color.join(' ');
-    this.addContent(`${color} ${op}`);
+      color = color.join(' ');
+      this.addContent(`${color} ${op}`);
+    }
 
     return true;
   },
@@ -144,6 +158,14 @@ export default {
     this.page.ext_gstates[name] = dictionary;
     return this.addContent(`/${name} gs`);
   },
+
+  linearGradient(x1, y1, x2, y2) {
+    return new PDFLinearGradient(this, x1, y1, x2, y2);
+  },
+
+  radialGradient(x1, y1, r1, x2, y2, r2) {
+    return new PDFRadialGradient(this, x1, y1, r1, x2, y2, r2);
+  }
 };
 
 var namedColors = {
