@@ -10,3 +10,4 @@ demo/bundle.js
 !demo/browser.html
 dist
 *.b64.afm
+.vscode/
