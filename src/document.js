@@ -31,6 +31,8 @@ class PDFDocument extends stream.Readable {
       Dests: new PDFNameTree()
     });
 
+    const Lang = this.options.lang || 'en-US';
+
     this._root = this.ref({
       Type: 'Catalog',
       Pages: this.ref({
@@ -38,7 +40,8 @@ class PDFDocument extends stream.Readable {
         Count: 0,
         Kids: [],
       }),
-      Names
+      Names,
+      Lang
     });
 
     // The current page
