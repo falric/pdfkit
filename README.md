@@ -116,6 +116,21 @@ doc.end()
 complex documents with a very small amount of code.  For more, see the `demo` folder and the 
 [PDFKit programming guide](http://pdfkit.org/docs/getting_started.html).
 
+### Lang Example
+
+```javascript
+  ...
+
+  // The value of the lang property will be added as a Lang entry
+  // Default lang is en-US
+  const doc = new PDFDocument({ lang: 'sv-SE' });
+
+  // Pipe its output somewhere, like to a file or HTTP response
+  doc.pipe(fs.createWriteStream('output.pdf'))
+
+  ...
+```
+
 ## Browser Usage
 
 There are two ways to use PDFKit in the browser.  The first is to use [Browserify](http://browserify.org/),
